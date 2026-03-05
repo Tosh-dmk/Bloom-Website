@@ -1,0 +1,999 @@
+<!doctype html>
+<html lang="en" id="top">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="BLOOM Members — a yearbook-style gallery of the people who make BLOOM."
+    />
+    <title>BLOOM · members</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+
+    <style>
+      :root {
+        --ink: #2e2a28;
+        --ink-soft: #4a3b32;
+        --brand-a: #d4a373;
+        --brand-b: #b86b4d;
+        --brand-c: #c4826e;
+        --glass: rgba(255, 245, 235, 0.62);
+        --glass-strong: rgba(255, 235, 215, 0.78);
+        --stroke: rgba(255, 220, 200, 0.55);
+        --shadow: 0 20px 35px -18px rgba(70, 40, 20, 0.35);
+        --nav-h: 76px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: #fffaf2;
+        color: var(--ink);
+        line-height: 1.5;
+        overflow-x: hidden;
+        opacity: 0;
+        animation: bodyFadeIn 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+      }
+
+      @keyframes bodyFadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+
+      .skip-link {
+        position: absolute;
+        left: -999px;
+        top: 10px;
+        z-index: 10001;
+        padding: 0.7rem 1rem;
+        border-radius: 999px;
+        background: rgba(255, 245, 235, 0.95);
+        border: 1px solid rgba(255, 220, 200, 0.8);
+        color: var(--ink);
+        box-shadow: var(--shadow);
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .skip-link:focus {
+        left: 12px;
+      }
+
+      /* ---------- NAVBAR ---------- */
+      .site-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 9998;
+        padding: 0.9rem 1.1rem;
+        pointer-events: none;
+      }
+
+      .nav {
+        pointer-events: auto;
+        max-width: 1300px;
+        margin: 0 auto;
+        height: var(--nav-h);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+
+        background: var(--glass);
+        backdrop-filter: blur(12px);
+        border: 1px solid var(--stroke);
+        border-radius: 999px;
+        padding: 0.65rem 0.9rem 0.65rem 1.2rem;
+        box-shadow: 0 18px 28px -22px rgba(80, 45, 20, 0.55);
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.65rem;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+
+      .brand-mark {
+        width: 40px;
+        height: 40px;
+        border-radius: 999px;
+        display: grid;
+        place-items: center;
+        background: radial-gradient(
+          circle at 30% 30%,
+          rgba(255, 245, 235, 0.9),
+          rgba(255, 235, 215, 0.4)
+        );
+        border: 1px solid rgba(255, 220, 200, 0.75);
+        box-shadow: 0 16px 22px -18px rgba(70, 35, 15, 0.5);
+        font-size: 1.1rem;
+      }
+
+      .brand-name {
+        font-family: "Playfair Display", serif;
+        font-weight: 900;
+        letter-spacing: 0.02em;
+        font-size: 1.35rem;
+        background: linear-gradient(145deg, var(--brand-a), var(--brand-b), var(--brand-c));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 0 18px rgba(255, 140, 100, 0.18);
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.25rem;
+        border-radius: 999px;
+        background: rgba(255, 240, 225, 0.35);
+        border: 1px solid rgba(255, 220, 200, 0.45);
+      }
+
+      .nav-link {
+        text-decoration: none;
+        color: #5a3a29;
+        font-weight: 600;
+        padding: 0.65rem 1rem;
+        border-radius: 999px;
+        transition:
+          transform 0.25s ease,
+          background 0.25s ease,
+          box-shadow 0.25s ease;
+        outline: none;
+      }
+      .nav-link:hover {
+        transform: translateY(-1px);
+        background: rgba(255, 240, 220, 0.75);
+        box-shadow: 0 16px 20px -18px rgba(70, 35, 15, 0.55);
+      }
+      .nav-link:focus-visible {
+        outline: 3px solid rgba(255, 170, 122, 0.95);
+        outline-offset: 2px;
+      }
+
+      .nav-link.is-active {
+        background: linear-gradient(145deg, rgba(212, 163, 115, 0.92), rgba(184, 107, 77, 0.92));
+        color: rgba(255, 245, 235, 0.98);
+        box-shadow: 0 16px 22px -18px rgba(50, 20, 10, 0.6);
+      }
+
+      .nav-toggle {
+        display: none;
+        border: 1px solid rgba(255, 220, 200, 0.65);
+        background: rgba(255, 245, 235, 0.75);
+        backdrop-filter: blur(10px);
+        color: #5a3a29;
+        border-radius: 999px;
+        padding: 0.65rem 0.9rem;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 16px 20px -18px rgba(70, 35, 15, 0.5);
+      }
+      .nav-toggle:focus-visible {
+        outline: 3px solid rgba(255, 170, 122, 0.95);
+        outline-offset: 2px;
+      }
+
+      .nav-drawer {
+        display: none;
+        position: absolute;
+        top: calc(0.9rem + var(--nav-h) + 0.55rem);
+        left: 1.1rem;
+        right: 1.1rem;
+        max-width: 1300px;
+        margin: 0 auto;
+        background: rgba(255, 245, 235, 0.86);
+        backdrop-filter: blur(14px);
+        border: 1px solid rgba(255, 220, 200, 0.7);
+        border-radius: 1.5rem;
+        box-shadow: 0 28px 45px -28px rgba(50, 25, 10, 0.6);
+        padding: 0.6rem;
+        pointer-events: auto;
+      }
+      .nav-drawer a {
+        display: block;
+        padding: 0.9rem 1rem;
+        border-radius: 1.1rem;
+        color: #5a3a29;
+        font-weight: 700;
+        text-decoration: none;
+      }
+      .nav-drawer a:hover {
+        background: rgba(255, 235, 215, 0.75);
+      }
+      .nav-drawer a.is-active {
+        background: linear-gradient(145deg, rgba(212, 163, 115, 0.92), rgba(184, 107, 77, 0.92));
+        color: rgba(255, 245, 235, 0.98);
+      }
+      .nav-drawer.open {
+        display: block;
+      }
+
+      /* Background layers */
+      .gradient-bg {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(125deg, #fff1e0 0%, #fff9e6 40%, #ffe6e9 80%, #fff1dd 100%);
+        background-size: 300% 300%;
+        animation: softGradientShift 16s ease infinite;
+        z-index: -2;
+        pointer-events: none;
+      }
+      @keyframes softGradientShift {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .petal-container {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+        overflow: hidden;
+        will-change: transform;
+      }
+
+      .petal {
+        position: absolute;
+        color: rgba(255, 200, 200, 0.25);
+        font-size: clamp(1.2rem, 6vw, 3.5rem);
+        user-select: none;
+        animation: floatPetals 20s linear infinite;
+        opacity: 0.5;
+        transform-origin: center;
+        will-change: transform, opacity;
+      }
+
+      @keyframes floatPetals {
+        0% {
+          transform: translateY(110vh) rotate(0deg) scale(0.8);
+          opacity: 0.2;
+        }
+        50% {
+          opacity: 0.5;
+        }
+        100% {
+          transform: translateY(-20vh) rotate(360deg) scale(1.2);
+          opacity: 0;
+        }
+      }
+
+      .content {
+        position: relative;
+        z-index: 5;
+        padding-top: calc(var(--nav-h) + 2.2rem);
+      }
+
+      main {
+        display: block;
+      }
+
+      section {
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 4.5rem 2rem;
+      }
+
+      /* Page header */
+      .page-hero {
+        padding-top: 3.5rem;
+        padding-bottom: 2.5rem;
+        text-align: center;
+      }
+
+      .small-label {
+        font-size: 1.05rem;
+        letter-spacing: 6px;
+        text-transform: uppercase;
+        color: #8b6f5c;
+        font-weight: 300;
+        margin-bottom: 0.9rem;
+      }
+
+      .page-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(3rem, 7vw, 5.6rem);
+        font-weight: 900;
+        line-height: 1.05;
+        background: linear-gradient(145deg, var(--brand-a), var(--brand-b), var(--brand-c));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 0 24px rgba(255, 140, 100, 0.25);
+        margin-bottom: 0.6rem;
+      }
+
+      .page-subtitle {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(1.2rem, 2.6vw, 1.8rem);
+        font-weight: 400;
+        color: var(--ink-soft);
+        text-shadow:
+          0 0 10px #ffe1c6,
+          0 0 18px #ffdbc5;
+        opacity: 0.95;
+      }
+
+      /* Controls */
+      .controls {
+        margin-top: 2.2rem;
+        display: flex;
+        justify-content: center;
+        gap: 0.9rem;
+        flex-wrap: wrap;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+        border-radius: 999px;
+        background: rgba(255, 240, 225, 0.45);
+        border: 1px solid rgba(255, 220, 200, 0.6);
+        color: #5a3a29;
+        font-weight: 700;
+        text-decoration: none;
+        box-shadow: 0 18px 28px -22px rgba(80, 45, 20, 0.35);
+      }
+
+      /* Yearbook grid */
+      .yearbook-wrap {
+        background: rgba(255, 235, 220, 0.2);
+        backdrop-filter: blur(4px);
+        border-radius: 4rem 0 4rem 0;
+        padding: 3rem 1.6rem;
+        box-shadow: 0 20px 40px -20px rgba(120, 70, 40, 0.3);
+      }
+
+      .yearbook-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.7rem;
+      }
+
+      .member-card {
+        position: relative;
+        border-radius: 2rem;
+        background: rgba(255, 245, 235, 0.62);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 220, 200, 0.65);
+        box-shadow: 0 22px 30px -18px rgba(70, 40, 20, 0.25);
+        overflow: hidden;
+        transform: translateY(18px);
+        opacity: 0;
+        transition:
+          transform 0.7s ease,
+          opacity 0.7s ease,
+          box-shadow 0.35s ease;
+        cursor: pointer;
+      }
+
+      .member-card.in-view {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .member-card:hover {
+        transform: translateY(-4px) rotate(-0.2deg);
+        box-shadow: 0 34px 45px -22px rgba(90, 50, 25, 0.35);
+      }
+
+      /* a tiny "yearbook shine" */
+      .member-card::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -120%;
+        width: 65%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 250, 240, 0.2), transparent);
+        animation: shimmer 3.8s infinite;
+        pointer-events: none;
+      }
+
+      @keyframes shimmer {
+        0% {
+          left: -120%;
+        }
+        18% {
+          left: 140%;
+        }
+        100% {
+          left: 140%;
+        }
+      }
+
+      /* Portrait */
+      .portrait {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 4 / 5;
+        overflow: hidden;
+        border-radius: 2rem 2rem 1.2rem 1.2rem;
+        background: linear-gradient(145deg, #e7d6c5, #cfb8a8);
+      }
+
+      .portrait img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 0.55s ease;
+      }
+
+      .portrait.has-img img {
+        opacity: 1;
+      }
+
+      /* Placeholder initials */
+      .initials {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        font-family: "Playfair Display", serif;
+        font-weight: 900;
+        font-size: clamp(2rem, 6vw, 3.2rem);
+        background: radial-gradient(
+          circle at 30% 30%,
+          rgba(255, 245, 235, 0.85),
+          rgba(255, 235, 215, 0.22) 55%,
+          rgba(255, 235, 215, 0.08)
+        );
+        color: rgba(90, 55, 35, 0.75);
+        text-shadow: 0 0 18px rgba(255, 165, 120, 0.25);
+      }
+      .portrait.has-img .initials {
+        display: none;
+      }
+
+      .member-meta {
+        padding: 1.1rem 1.2rem 1.25rem;
+      }
+
+      .member-name {
+        font-family: "Playfair Display", serif;
+        font-weight: 900;
+        font-size: 1.45rem;
+        color: #3e2c1e;
+        margin-bottom: 0.45rem;
+        letter-spacing: 0.01em;
+      }
+
+      .member-quote {
+        font-size: 0.98rem;
+        color: #5a3a29;
+        line-height: 1.55;
+        opacity: 0.95;
+        position: relative;
+        padding-left: 0.9rem;
+      }
+
+      .member-quote::before {
+        content: "“";
+        position: absolute;
+        left: 0;
+        top: -0.25rem;
+        font-family: "Playfair Display", serif;
+        font-size: 1.6rem;
+        color: rgba(184, 107, 77, 0.85);
+      }
+
+      .member-quote::after {
+        content: "”";
+        font-family: "Playfair Display", serif;
+        font-size: 1.15em; /* relative + smaller */
+        line-height: 1;
+        display: inline-block; /* lets line-height apply */
+        color: rgba(184, 107, 77, 0.85);
+        margin-left: 0.1rem;
+        transform: translateY(0.08em);
+      }
+
+      /* Lightbox */
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 10000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        background: rgba(20, 12, 8, 0.62);
+        backdrop-filter: blur(10px);
+      }
+      .lightbox.open {
+        display: flex;
+      }
+      .lightbox-inner {
+        position: relative;
+        width: min(980px, 94vw);
+        display: grid;
+        gap: 1rem;
+        justify-items: center;
+      }
+      .lightbox-card {
+        width: 100%;
+        display: grid;
+        gap: 0.9rem;
+        padding: 1rem;
+        border-radius: 1.8rem;
+        background: rgba(255, 245, 235, 0.75);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 220, 200, 0.55);
+        box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.65);
+      }
+      .lightbox-img {
+        width: 100%;
+        max-height: 70vh;
+        object-fit: contain;
+        border-radius: 1.4rem;
+        background: rgba(255, 245, 235, 0.18);
+        border: 1px solid rgba(255, 220, 200, 0.25);
+      }
+      .lightbox-caption {
+        text-align: center;
+        padding: 0.3rem 0.2rem 0.4rem;
+      }
+      .lightbox-caption h3 {
+        font-family: "Playfair Display", serif;
+        font-weight: 900;
+        font-size: 1.6rem;
+        color: #3e2c1e;
+        margin-bottom: 0.25rem;
+      }
+      .lightbox-caption p {
+        color: #5a3a29;
+        font-weight: 500;
+        opacity: 0.95;
+      }
+      .lightbox-close {
+        position: absolute;
+        top: -0.6rem;
+        right: -0.6rem;
+        width: 46px;
+        height: 46px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 220, 200, 0.35);
+        background: rgba(255, 245, 235, 0.75);
+        backdrop-filter: blur(10px);
+        cursor: pointer;
+        font-size: 1.4rem;
+        line-height: 1;
+        display: grid;
+        place-items: center;
+        box-shadow: 0 18px 25px -18px rgba(0, 0, 0, 0.6);
+      }
+      .lightbox-close:focus-visible {
+        outline: 3px solid rgba(255, 170, 122, 0.95);
+        outline-offset: 2px;
+      }
+
+      footer {
+        text-align: center;
+        padding: 2.5rem;
+        font-size: 1.2rem;
+        background: rgba(245, 225, 205, 0.3);
+        backdrop-filter: blur(4px);
+        border-top: 1px solid rgba(200, 160, 130, 0.3);
+        color: #5f4d3e;
+        margin-top: 4rem;
+      }
+      footer p:first-child {
+        font-weight: 600;
+        letter-spacing: 2px;
+      }
+      footer p:last-child {
+        font-size: 1rem;
+        opacity: 0.8;
+      }
+
+      @media (max-width: 860px) {
+        .nav-links {
+          display: none;
+        }
+        .nav-toggle {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.55rem;
+        }
+        .yearbook-wrap {
+          border-radius: 2.6rem 0 2.6rem 0;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        * {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.001ms !important;
+        }
+        .petal {
+          display: none;
+        }
+        .gradient-bg {
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="gradient-bg"></div>
+    <div class="petal-container" id="petalContainer"></div>
+
+    <header class="site-header">
+      <nav class="nav" aria-label="Primary">
+        <a class="brand" href="index.html" aria-label="BLOOM home">
+          <span class="brand-mark" aria-hidden="true">🌸</span>
+          <span class="brand-name">BLOOM</span>
+        </a>
+
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="navDrawer"
+        >
+          ☰ <span style="font-weight: 700">Menu</span>
+        </button>
+
+        <div class="nav-links" aria-label="Primary links">
+          <a class="nav-link" href="index.html">Home</a>
+          <a class="nav-link is-active" href="members.html">Members</a>
+          <a class="nav-link" href="about.html">About</a>
+        </div>
+      </nav>
+
+      <div class="nav-drawer" id="navDrawer" aria-label="Mobile menu">
+        <a href="index.html">Home</a>
+        <a class="is-active" href="members.html">Members</a>
+        <a href="about.html">About</a>
+      </div>
+    </header>
+
+    <div class="content">
+      <main id="main">
+        <section class="page-hero">
+          <div class="small-label">BLOOM</div>
+          <h1 class="page-title">Meet the Members</h1>
+          <p class="page-subtitle">Faces, names, and little lines they’ll never live down 🌸</p>
+          <div class="controls">
+            <a class="pill" href="#top" aria-label="Back to top">⬆️ Top</a>
+          </div>
+        </section>
+
+        <section>
+          <div class="yearbook-wrap">
+            <div class="yearbook-grid" id="yearbookGrid" aria-label="Members yearbook grid"></div>
+          </div>
+        </section>
+
+        <footer>
+          <p>Bloom Village</p>
+          <p>Rooted in Unity. Rising in Power.</p>
+          <p>Created by Brandon.W and Tosh</p>
+        </footer>
+      </main>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+      <div class="lightbox-inner" role="dialog" aria-modal="true" aria-label="Member preview">
+        <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close preview">
+          ×
+        </button>
+
+        <div class="lightbox-card">
+          <img class="lightbox-img" id="lightboxImg" alt="" />
+          <div class="lightbox-caption">
+            <h3 id="lightboxName">Member</h3>
+            <p id="lightboxQuote">Quote</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        const reduceMotion =
+          window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        const navToggle = document.getElementById("navToggle");
+        const navDrawer = document.getElementById("navDrawer");
+
+        function setDrawer(open) {
+          if (!navToggle || !navDrawer) return;
+          navDrawer.classList.toggle("open", open);
+          navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+        }
+
+        if (navToggle && navDrawer) {
+          navToggle.addEventListener("click", () => {
+            const isOpen = navDrawer.classList.contains("open");
+            setDrawer(!isOpen);
+          });
+
+          navDrawer.querySelectorAll("a").forEach((a) =>
+            a.addEventListener("click", () => {
+              setDrawer(false);
+            }),
+          );
+
+          window.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") setDrawer(false);
+          });
+
+          window.addEventListener("click", (e) => {
+            const target = e.target;
+            if (!target) return;
+            if (navDrawer.classList.contains("open")) {
+              const clickedToggle = navToggle.contains(target);
+              const clickedDrawer = navDrawer.contains(target);
+              if (!clickedToggle && !clickedDrawer) setDrawer(false);
+            }
+          });
+        }
+
+        // --- Petals ---
+        const petalContainer = document.getElementById("petalContainer");
+        const petalEmojis = ["🌸", "🌼", "🌻", "🌺", "🪷", "💮", "✨"];
+
+        if (!reduceMotion && petalContainer) {
+          const PETAL_COUNT = 22;
+          for (let i = 0; i < PETAL_COUNT; i++) {
+            const petal = document.createElement("div");
+            petal.className = "petal";
+            petal.textContent = petalEmojis[Math.floor(Math.random() * petalEmojis.length)];
+            petal.style.left = Math.random() * 100 + "%";
+            petal.style.top = Math.random() * 100 + "%";
+            petal.style.animationDelay = Math.random() * 15 + "s";
+            petal.style.animationDuration = 12 + Math.random() * 18 + "s";
+            petal.style.fontSize = 1.2 + Math.random() * 3 + "rem";
+            petal.style.opacity = (0.2 + Math.random() * 0.3).toFixed(2);
+            petalContainer.appendChild(petal);
+          }
+        }
+
+        const MEMBERS = [
+          {
+            name: "Tosh",
+            quote: "Evolve! Beyond the person you once were a minute before.",
+            img: "/assets/images/Tosh.jpeg",
+          },
+          { name: "Yvette", quote: "", img: "/assets/images/Yvette.jpeg" },
+          { name: "Shon", quote: "", img: "/assets/images/Shon.jpeg" },
+          { name: "Bogs", quote: "", img: "/assets/images/Bogs.jpeg" },
+          { name: "Brandon", quote: "", img: "/assets/images/Brandon.jpeg" },
+          { name: "Kanyi", quote: "", img: "/assets/images/Kanyi.jpeg" },
+          { name: "Limo", quote: "", img: "/assets/images/Limo.jpeg" },
+          {
+            name: "Boney",
+            quote: "Slow down and enjoy the simple things. You can't rush a sunset",
+            img: "/assets/images/Boni.jpeg",
+          },
+          { name: "Fadhili", quote: "", img: "/assets/images/Fadhili.jpeg" },
+        ];
+
+        function initialsFromName(name) {
+          const parts = String(name || "")
+            .trim()
+            .split(/\s+/)
+            .filter(Boolean);
+          if (parts.length === 0) return "🌸";
+          const first = parts[0]?.[0] || "";
+          const last = parts.length > 1 ? parts[parts.length - 1][0] : "";
+          return (first + last).toUpperCase() || "🌸";
+        }
+
+        // --- Build cards ---
+        const grid = document.getElementById("yearbookGrid");
+
+        function renderCards(list) {
+          if (!grid) return;
+          grid.innerHTML = "";
+
+          list.forEach((m, idx) => {
+            const card = document.createElement("article");
+            card.className = "member-card";
+            card.setAttribute("tabindex", "0");
+            card.setAttribute("role", "button");
+            card.setAttribute("aria-label", `Open profile for ${m.name}`);
+
+            const portrait = document.createElement("div");
+            portrait.className = "portrait";
+
+            const initials = document.createElement("div");
+            initials.className = "initials";
+            initials.textContent = initialsFromName(m.name);
+
+            const img = document.createElement("img");
+            img.alt = `${m.name} portrait`;
+            img.loading = "lazy";
+            img.decoding = "async";
+            if (m.img) img.src = m.img;
+
+            // If image loads, show it. If it fails, keep initials.
+            img.addEventListener("load", () => portrait.classList.add("has-img"));
+            img.addEventListener("error", () => {
+              // leave placeholder
+              img.remove();
+            });
+
+            portrait.appendChild(img);
+            portrait.appendChild(initials);
+
+            const meta = document.createElement("div");
+            meta.className = "member-meta";
+
+            const nameEl = document.createElement("h2");
+            nameEl.className = "member-name";
+            nameEl.textContent = m.name;
+
+            const quoteEl = document.createElement("p");
+            quoteEl.className = "member-quote";
+            quoteEl.textContent = String(m.quote).replace(/\s+/g, " ").trim();
+
+            meta.appendChild(nameEl);
+            meta.appendChild(quoteEl);
+
+            card.appendChild(portrait);
+            card.appendChild(meta);
+
+            // Click / Enter opens lightbox if there is an image, otherwise still opens with placeholder
+            card.addEventListener("click", () => openMember(m, portrait));
+            card.addEventListener("keydown", (e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                openMember(m, portrait);
+              }
+            });
+
+            // Staggered reveal (nice yearbook vibe)
+            if (!reduceMotion) card.style.transitionDelay = `${Math.min(idx * 45, 400)}ms`;
+
+            grid.appendChild(card);
+          });
+
+          // Reveal observer for cards
+          const cards = Array.from(grid.querySelectorAll(".member-card"));
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("in-view");
+                  observer.unobserve(entry.target);
+                }
+              });
+            },
+            { threshold: 0.2, rootMargin: "0px 0px -50px 0px" },
+          );
+          cards.forEach((c) => observer.observe(c));
+        }
+
+        // --- Lightbox ---
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImg = document.getElementById("lightboxImg");
+        const lightboxClose = document.getElementById("lightboxClose");
+        const lightboxName = document.getElementById("lightboxName");
+        const lightboxQuote = document.getElementById("lightboxQuote");
+
+        let lastFocusedEl = null;
+
+        function openLightbox(src, alt, name, quote) {
+          if (!lightbox || !lightboxImg || !lightboxName || !lightboxQuote) return;
+
+          lastFocusedEl = document.activeElement;
+
+          lightboxImg.src = src || "";
+          lightboxImg.alt = alt || "";
+          lightboxName.textContent = name || "Member";
+          lightboxQuote.textContent = quote || "";
+
+          lightbox.classList.add("open");
+          lightbox.setAttribute("aria-hidden", "false");
+          document.body.style.overflow = "hidden";
+
+          if (lightboxClose) lightboxClose.focus();
+        }
+
+        function closeLightbox() {
+          if (!lightbox || !lightboxImg) return;
+
+          lightbox.classList.remove("open");
+          lightbox.setAttribute("aria-hidden", "true");
+          document.body.style.overflow = "";
+          lightboxImg.src = "";
+
+          if (lastFocusedEl && typeof lastFocusedEl.focus === "function") lastFocusedEl.focus();
+        }
+
+        function openMember(m, portraitEl) {
+          let src = m.img;
+
+          if (!src) {
+            const initials = initialsFromName(m.name);
+            const svg = `
+              <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1500">
+                <defs>
+                  <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#e7d6c5"/>
+                    <stop offset="1" stop-color="#cfb8a8"/>
+                  </linearGradient>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#g)"/>
+                <circle cx="600" cy="620" r="260" fill="rgba(255,245,235,0.75)" />
+                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+                      font-family="Playfair Display, serif" font-size="180" font-weight="900"
+                      fill="rgba(90,55,35,0.75)">${initials}</text>
+                <text x="50%" y="78%" dominant-baseline="middle" text-anchor="middle"
+                      font-family="Poppins, sans-serif" font-size="54" font-weight="600"
+                      fill="rgba(90,55,35,0.7)">BLOOM</text>
+              </svg>`;
+            src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+          }
+
+          openLightbox(src, `${m.name} portrait`, m.name, `“${m.quote}”`);
+        }
+
+        if (lightboxClose) lightboxClose.addEventListener("click", closeLightbox);
+
+        if (lightbox) {
+          lightbox.addEventListener("click", (e) => {
+            if (e.target === lightbox) closeLightbox();
+          });
+        }
+
+        window.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") {
+            if (lightbox && lightbox.classList.contains("open")) closeLightbox();
+          }
+        });
+
+        // Initial render
+        renderCards(MEMBERS);
+      })();
+    </script>
+  </body>
+</html>

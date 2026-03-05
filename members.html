@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="BLOOM Members — a yearbook-style gallery of the people who make BLOOM."
+      content="BLOOM Members — a living yearbook where hangouts create memories, and profiles collect them."
     />
     <title>BLOOM · members</title>
 
@@ -15,18 +15,20 @@
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+    <link rel="icon" type="image/png" href="assets/images/favicon.png" />
 
     <style>
       :root {
         --ink: #2e2a28;
         --ink-soft: #4a3b32;
+
         --brand-a: #d4a373;
         --brand-b: #b86b4d;
         --brand-c: #c4826e;
+
         --glass: rgba(255, 245, 235, 0.62);
-        --glass-strong: rgba(255, 235, 215, 0.78);
         --stroke: rgba(255, 220, 200, 0.55);
+
         --shadow: 0 20px 35px -18px rgba(70, 40, 20, 0.35);
         --nav-h: 76px;
       }
@@ -36,6 +38,7 @@
         padding: 0;
         box-sizing: border-box;
       }
+
       html {
         scroll-behavior: smooth;
         overflow-x: hidden;
@@ -45,7 +48,7 @@
         font-family: "Poppins", sans-serif;
         background: #fffaf2;
         color: var(--ink);
-        line-height: 1.5;
+        line-height: 1.55;
         overflow-x: hidden;
         opacity: 0;
         animation: bodyFadeIn 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
@@ -57,6 +60,7 @@
         }
       }
 
+      /* Skip link */
       .skip-link {
         position: absolute;
         left: -999px;
@@ -171,7 +175,6 @@
         outline: 3px solid rgba(255, 170, 122, 0.95);
         outline-offset: 2px;
       }
-
       .nav-link.is-active {
         background: linear-gradient(145deg, rgba(212, 163, 115, 0.92), rgba(184, 107, 77, 0.92));
         color: rgba(255, 245, 235, 0.98);
@@ -230,7 +233,7 @@
         display: block;
       }
 
-      /* Background layers */
+      /* Background */
       .gradient-bg {
         position: fixed;
         inset: 0;
@@ -306,7 +309,7 @@
         padding: 4.5rem 2rem;
       }
 
-      /* Page header */
+      /* Page hero */
       .page-hero {
         padding-top: 3.5rem;
         padding-bottom: 2.5rem;
@@ -337,40 +340,19 @@
 
       .page-subtitle {
         font-family: "Playfair Display", serif;
-        font-size: clamp(1.2rem, 2.6vw, 1.8rem);
+        font-size: clamp(1.15rem, 2.4vw, 1.75rem);
         font-weight: 400;
         color: var(--ink-soft);
         text-shadow:
           0 0 10px #ffe1c6,
           0 0 18px #ffdbc5;
         opacity: 0.95;
+        max-width: 980px;
+        margin: 0 auto;
       }
 
-      /* Controls */
-      .controls {
-        margin-top: 2.2rem;
-        display: flex;
-        justify-content: center;
-        gap: 0.9rem;
-        flex-wrap: wrap;
-      }
-
-      .pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.75rem 1rem;
-        border-radius: 999px;
-        background: rgba(255, 240, 225, 0.45);
-        border: 1px solid rgba(255, 220, 200, 0.6);
-        color: #5a3a29;
-        font-weight: 700;
-        text-decoration: none;
-        box-shadow: 0 18px 28px -22px rgba(80, 45, 20, 0.35);
-      }
-
-      /* Yearbook grid */
-      .yearbook-wrap {
+      /* Wraps */
+      .wrap {
         background: rgba(255, 235, 220, 0.2);
         backdrop-filter: blur(4px);
         border-radius: 4rem 0 4rem 0;
@@ -378,6 +360,7 @@
         box-shadow: 0 20px 40px -20px rgba(120, 70, 40, 0.3);
       }
 
+      /* Yearbook grid */
       .yearbook-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -399,6 +382,7 @@
           opacity 0.7s ease,
           box-shadow 0.35s ease;
         cursor: pointer;
+        outline: none;
       }
 
       .member-card.in-view {
@@ -411,7 +395,11 @@
         box-shadow: 0 34px 45px -22px rgba(90, 50, 25, 0.35);
       }
 
-      /* a tiny "yearbook shine" */
+      .member-card:focus-visible {
+        outline: 3px solid rgba(255, 170, 122, 0.95);
+        outline-offset: 4px;
+      }
+
       .member-card::after {
         content: "";
         position: absolute;
@@ -436,7 +424,6 @@
         }
       }
 
-      /* Portrait */
       .portrait {
         position: relative;
         width: 100%;
@@ -460,7 +447,11 @@
         opacity: 1;
       }
 
-      /* Placeholder initials */
+      /* Hide initials when image loads */
+      .portrait.has-img .initials {
+        display: none;
+      }
+
       .initials {
         position: absolute;
         inset: 0;
@@ -477,9 +468,6 @@
         );
         color: rgba(90, 55, 35, 0.75);
         text-shadow: 0 0 18px rgba(255, 165, 120, 0.25);
-      }
-      .portrait.has-img .initials {
-        display: none;
       }
 
       .member-meta {
@@ -514,75 +502,623 @@
         color: rgba(184, 107, 77, 0.85);
       }
 
+      /* Fix the quote extra-gap issue */
       .member-quote::after {
         content: "”";
         font-family: "Playfair Display", serif;
-        font-size: 1.15em; /* relative + smaller */
+        font-size: 1.15em;
         line-height: 1;
-        display: inline-block; /* lets line-height apply */
+        display: inline-block;
         color: rgba(184, 107, 77, 0.85);
         margin-left: 0.1rem;
         transform: translateY(0.08em);
       }
 
-      /* Lightbox */
-      .lightbox {
+      /* ---------- Hangouts section (C) ---------- */
+      .section-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 1.2rem;
+      }
+
+      .section-title {
+        font-family: "Playfair Display", serif;
+        font-weight: 900;
+        font-size: 2.4rem;
+        background: linear-gradient(135deg, #a87b64, #8b5e4c);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .section-note {
+        color: #5a3a29;
+        font-weight: 600;
+        opacity: 0.92;
+        max-width: 70ch;
+      }
+
+      .hangouts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+        gap: 1.35rem;
+      }
+
+      .hangout-card {
+        border-radius: 1.9rem;
+        overflow: hidden;
+        background: rgba(255, 245, 235, 0.72);
+        border: 1px solid rgba(255, 220, 200, 0.65);
+        box-shadow: 0 22px 30px -18px rgba(70, 40, 20, 0.25);
+        cursor: pointer;
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease;
+        outline: none;
+      }
+
+      .hangout-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 30px 40px -24px rgba(70, 40, 20, 0.35);
+      }
+
+      .hangout-card:focus-visible {
+        outline: 3px solid rgba(255, 170, 122, 0.95);
+        outline-offset: 4px;
+      }
+
+      .hangout-media {
+        position: relative;
+        aspect-ratio: 16 / 10;
+        background: linear-gradient(145deg, #e7d6c5, #cfb8a8);
+      }
+
+      .hangout-media img,
+      .hangout-media video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .hangout-media video {
+        /* preview video without audio + no controls in grid */
+        muted: true;
+      }
+
+      .hangout-badge {
+        position: absolute;
+        left: 0.85rem;
+        top: 0.85rem;
+        padding: 0.45rem 0.7rem;
+        border-radius: 999px;
+        font-weight: 800;
+        font-size: 0.85rem;
+        color: rgba(255, 245, 235, 0.98);
+        background: linear-gradient(145deg, rgba(212, 163, 115, 0.95), rgba(184, 107, 77, 0.95));
+        box-shadow: 0 16px 22px -18px rgba(50, 20, 10, 0.6);
+      }
+
+      .hangout-meta {
+        padding: 0.95rem 1rem 1.1rem;
+      }
+
+      .hangout-title {
+        font-weight: 900;
+        color: #3e2c1e;
+        margin-bottom: 0.2rem;
+      }
+
+      .hangout-date {
+        font-size: 0.92rem;
+        color: #5a3a29;
+        font-weight: 700;
+        opacity: 0.9;
+        margin-bottom: 0.6rem;
+      }
+
+      .hangout-caption {
+        font-size: 0.98rem;
+        color: #5a3a29;
+        font-weight: 600;
+        opacity: 0.95;
+        margin-bottom: 0.85rem;
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.45rem 0.7rem;
+        border-radius: 999px;
+        background: rgba(255, 240, 225, 0.55);
+        border: 1px solid rgba(255, 220, 200, 0.6);
+        color: #5a3a29;
+        font-weight: 800;
+        font-size: 0.88rem;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .chip-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 999px;
+        background: rgba(184, 107, 77, 0.9);
+        box-shadow: 0 0 18px rgba(184, 107, 77, 0.25);
+      }
+
+      /* ---------- Profile Modal (member) ---------- */
+      .modal {
         position: fixed;
         inset: 0;
         z-index: 10000;
         display: none;
         align-items: center;
         justify-content: center;
-        padding: 2rem;
+        padding: 1.8rem;
         background: rgba(20, 12, 8, 0.62);
         backdrop-filter: blur(10px);
       }
-      .lightbox.open {
+      .modal.open {
         display: flex;
       }
-      .lightbox-inner {
+
+      .modal-inner {
         position: relative;
-        width: min(980px, 94vw);
+        width: min(1100px, 96vw);
+        max-height: 88vh;
+        overflow: hidden;
+        border-radius: 2rem;
+        background: rgba(255, 245, 235, 0.78);
+        backdrop-filter: blur(14px);
+        border: 1px solid rgba(255, 220, 200, 0.55);
+        box-shadow: 0 34px 70px -40px rgba(0, 0, 0, 0.7);
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 0.85rem;
+        right: 0.85rem;
+        width: 46px;
+        height: 46px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 220, 200, 0.35);
+        background: rgba(255, 245, 235, 0.85);
+        cursor: pointer;
+        font-size: 1.5rem;
+        line-height: 1;
+        display: grid;
+        place-items: center;
+        box-shadow: 0 18px 25px -18px rgba(0, 0, 0, 0.6);
+      }
+      .modal-close:focus-visible {
+        outline: 3px solid rgba(255, 170, 122, 0.95);
+        outline-offset: 2px;
+      }
+
+      .modal-body {
+        display: grid;
+        grid-template-columns: 0.95fr 1.05fr;
+        gap: 1.2rem;
+        padding: 1.2rem;
+        max-height: 88vh;
+        overflow: auto;
+      }
+
+      .profile-photo {
+        border-radius: 1.6rem;
+        overflow: hidden;
+        background: linear-gradient(145deg, #e7d6c5, #cfb8a8);
+        border: 1px solid rgba(255, 220, 200, 0.55);
+        box-shadow: 0 22px 30px -20px rgba(70, 40, 20, 0.35);
+        position: relative;
+        min-height: 340px;
+      }
+
+      .profile-photo img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        max-height: 520px;
+      }
+
+      .profile-card {
+        border-radius: 1.6rem;
+        background: rgba(255, 240, 225, 0.48);
+        border: 1px solid rgba(255, 220, 200, 0.6);
+        padding: 1.2rem 1.2rem;
+        box-shadow: 0 22px 30px -20px rgba(70, 40, 20, 0.25);
+      }
+
+      .profile-name {
+        font-family: "Playfair Display", serif;
+        font-weight: 900;
+        font-size: clamp(2rem, 3.2vw, 2.6rem);
+        color: #3e2c1e;
+        margin-bottom: 0.25rem;
+      }
+
+      .profile-quote {
+        color: #5a3a29;
+        font-weight: 600;
+        opacity: 0.95;
+        margin-bottom: 1rem;
+      }
+
+      .facts {
+        display: grid;
+        gap: 0.75rem;
+        margin-top: 0.75rem;
+      }
+
+      .fact {
+        display: grid;
+        grid-template-columns: 38px 1fr;
+        gap: 0.75rem;
+        align-items: start;
+        padding: 0.85rem 0.9rem;
+        border-radius: 1.3rem;
+        background: rgba(255, 245, 235, 0.68);
+        border: 1px solid rgba(255, 220, 200, 0.55);
+      }
+
+      .fact-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 999px;
+        display: grid;
+        place-items: center;
+        background: rgba(255, 235, 215, 0.65);
+        border: 1px solid rgba(255, 220, 200, 0.65);
+        color: #5a3a29;
+        font-size: 1.05rem;
+      }
+
+      .fact-label {
+        font-weight: 800;
+        color: #3e2c1e;
+        margin-bottom: 0.15rem;
+      }
+
+      .fact-value {
+        color: #5a3a29;
+        font-weight: 600;
+        opacity: 0.95;
+      }
+
+      /* Member memories (derived from hangouts) */
+      .moments-section {
+        grid-column: 1 / -1;
+        border-radius: 1.6rem;
+        background: rgba(255, 240, 225, 0.4);
+        border: 1px solid rgba(255, 220, 200, 0.6);
+        padding: 1.1rem 1.1rem 1.2rem;
+        box-shadow: 0 22px 30px -20px rgba(70, 40, 20, 0.2);
+      }
+
+      .moments-title {
+        font-family: "Playfair Display", serif;
+        font-weight: 900;
+        font-size: 1.7rem;
+        color: #3e2c1e;
+        margin-bottom: 0.3rem;
+      }
+
+      .moments-sub {
+        color: #5a3a29;
+        font-weight: 600;
+        opacity: 0.95;
+        margin-bottom: 0.85rem;
+      }
+
+      .moments-strip {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(240px, 1fr);
+        gap: 1rem;
+        overflow-x: auto;
+        padding-bottom: 0.4rem;
+        scroll-snap-type: x mandatory;
+      }
+
+      .moments-strip::-webkit-scrollbar {
+        height: 10px;
+      }
+      .moments-strip::-webkit-scrollbar-thumb {
+        background: rgba(184, 107, 77, 0.25);
+        border-radius: 999px;
+      }
+
+      .moment-card {
+        scroll-snap-align: start;
+        border-radius: 1.5rem;
+        overflow: hidden;
+        background: rgba(255, 245, 235, 0.7);
+        border: 1px solid rgba(255, 220, 200, 0.6);
+        box-shadow: 0 22px 30px -20px rgba(70, 40, 20, 0.25);
+        cursor: pointer;
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease;
+        outline: none;
+      }
+
+      .moment-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 30px 40px -24px rgba(70, 40, 20, 0.35);
+      }
+
+      .moment-card:focus-visible {
+        outline: 3px solid rgba(255, 170, 122, 0.95);
+        outline-offset: 3px;
+      }
+
+      .moment-media {
+        position: relative;
+        aspect-ratio: 16 / 10;
+        background: linear-gradient(145deg, #e7d6c5, #cfb8a8);
+      }
+
+      .moment-media img,
+      .moment-media video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .moment-badge {
+        position: absolute;
+        left: 0.85rem;
+        top: 0.85rem;
+        padding: 0.45rem 0.7rem;
+        border-radius: 999px;
+        font-weight: 800;
+        font-size: 0.85rem;
+        color: rgba(255, 245, 235, 0.98);
+        background: linear-gradient(145deg, rgba(212, 163, 115, 0.95), rgba(184, 107, 77, 0.95));
+        box-shadow: 0 16px 22px -18px rgba(50, 20, 10, 0.6);
+      }
+
+      .moment-meta {
+        padding: 0.9rem 0.95rem 1rem;
+      }
+
+      .moment-title {
+        font-weight: 900;
+        color: #3e2c1e;
+        margin-bottom: 0.2rem;
+      }
+
+      .moment-date {
+        font-size: 0.9rem;
+        color: #5a3a29;
+        font-weight: 700;
+        opacity: 0.9;
+        margin-bottom: 0.55rem;
+      }
+
+      .moment-caption {
+        font-size: 0.95rem;
+        color: #5a3a29;
+        font-weight: 600;
+        opacity: 0.95;
+      }
+
+      .media-tag {
+        position: absolute;
+        right: 0.85rem;
+        top: 0.85rem;
+        padding: 0.4rem 0.6rem;
+        border-radius: 999px;
+        font-weight: 900;
+        font-size: 0.82rem;
+        color: rgba(255, 245, 235, 0.98);
+        background: rgba(20, 12, 8, 0.35);
+        border: 1px solid rgba(255, 245, 235, 0.35);
+        backdrop-filter: blur(10px);
+      }
+
+      /* ---------- Hangout Modal ---------- */
+      .hmodal {
+        position: fixed;
+        inset: 0;
+        z-index: 10002;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 1.8rem;
+        background: rgba(20, 12, 8, 0.7);
+        backdrop-filter: blur(10px);
+      }
+      .hmodal.open {
+        display: flex;
+      }
+      .hmodal-inner {
+        position: relative;
+        width: min(1100px, 96vw);
+        max-height: 88vh;
+        overflow: hidden;
+        border-radius: 2rem;
+        background: rgba(255, 245, 235, 0.82);
+        backdrop-filter: blur(14px);
+        border: 1px solid rgba(255, 220, 200, 0.55);
+        box-shadow: 0 34px 70px -40px rgba(0, 0, 0, 0.75);
+      }
+      .hmodal-close {
+        position: absolute;
+        top: 0.85rem;
+        right: 0.85rem;
+        width: 46px;
+        height: 46px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 220, 200, 0.35);
+        background: rgba(255, 245, 235, 0.85);
+        cursor: pointer;
+        font-size: 1.5rem;
+        line-height: 1;
+        display: grid;
+        place-items: center;
+        box-shadow: 0 18px 25px -18px rgba(0, 0, 0, 0.6);
+      }
+      .hmodal-close:focus-visible {
+        outline: 3px solid rgba(255, 170, 122, 0.95);
+        outline-offset: 2px;
+      }
+
+      .hmodal-body {
         display: grid;
         gap: 1rem;
-        justify-items: center;
+        padding: 1.2rem;
+        max-height: 88vh;
+        overflow: auto;
       }
-      .lightbox-card {
-        width: 100%;
+
+      .hmodal-head {
+        border-radius: 1.6rem;
+        background: rgba(255, 240, 225, 0.45);
+        border: 1px solid rgba(255, 220, 200, 0.6);
+        padding: 1rem 1.1rem;
+        box-shadow: 0 22px 30px -20px rgba(70, 40, 20, 0.2);
+      }
+
+      .hmodal-title {
+        font-family: "Playfair Display", serif;
+        font-weight: 900;
+        font-size: 2.1rem;
+        color: #3e2c1e;
+        margin-bottom: 0.15rem;
+      }
+
+      .hmodal-date {
+        color: #5a3a29;
+        font-weight: 800;
+        opacity: 0.95;
+        margin-bottom: 0.7rem;
+      }
+
+      .hmodal-caption {
+        color: #5a3a29;
+        font-weight: 600;
+        opacity: 0.95;
+      }
+
+      .hmodal-row {
         display: grid;
-        gap: 0.9rem;
-        padding: 1rem;
-        border-radius: 1.8rem;
-        background: rgba(255, 245, 235, 0.75);
-        backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 220, 200, 0.55);
-        box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.65);
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 1rem;
+        align-items: start;
       }
-      .lightbox-img {
+
+      .hphotos {
+        border-radius: 1.6rem;
+        background: rgba(255, 245, 235, 0.7);
+        border: 1px solid rgba(255, 220, 200, 0.6);
+        padding: 0.85rem;
+        box-shadow: 0 22px 30px -20px rgba(70, 40, 20, 0.2);
+      }
+
+      .hstrip {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(280px, 1fr);
+        gap: 0.85rem;
+        overflow-x: auto;
+        padding-bottom: 0.25rem;
+        scroll-snap-type: x mandatory;
+      }
+
+      .hitem {
+        scroll-snap-align: start;
+        border-radius: 1.3rem;
+        overflow: hidden;
+        background: linear-gradient(145deg, #e7d6c5, #cfb8a8);
+        border: 1px solid rgba(255, 220, 200, 0.6);
+        aspect-ratio: 16 / 10;
+        position: relative;
+      }
+
+      .hitem img,
+      .hitem video {
+        position: absolute;
+        inset: 0;
         width: 100%;
-        max-height: 70vh;
-        object-fit: contain;
-        border-radius: 1.4rem;
-        background: rgba(255, 245, 235, 0.18);
-        border: 1px solid rgba(255, 220, 200, 0.25);
+        height: 100%;
+        object-fit: cover;
       }
-      .lightbox-caption {
-        text-align: center;
-        padding: 0.3rem 0.2rem 0.4rem;
+
+      .hitem .hshot-badge {
+        position: absolute;
+        left: 0.75rem;
+        top: 0.75rem;
+        padding: 0.4rem 0.65rem;
+        border-radius: 999px;
+        font-weight: 900;
+        font-size: 0.82rem;
+        color: rgba(255, 245, 235, 0.98);
+        background: linear-gradient(145deg, rgba(212, 163, 115, 0.95), rgba(184, 107, 77, 0.95));
+        box-shadow: 0 16px 22px -18px rgba(50, 20, 10, 0.6);
+        z-index: 2;
       }
-      .lightbox-caption h3 {
+
+      .hpeople {
+        border-radius: 1.6rem;
+        background: rgba(255, 245, 235, 0.7);
+        border: 1px solid rgba(255, 220, 200, 0.6);
+        padding: 0.9rem;
+        box-shadow: 0 22px 30px -20px rgba(70, 40, 20, 0.2);
+      }
+
+      .hpeople h3 {
         font-family: "Playfair Display", serif;
         font-weight: 900;
         font-size: 1.6rem;
         color: #3e2c1e;
-        margin-bottom: 0.25rem;
+        margin-bottom: 0.5rem;
       }
-      .lightbox-caption p {
-        color: #5a3a29;
-        font-weight: 500;
-        opacity: 0.95;
+
+      /* Photo / Video Lightbox */
+      .media-lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 10003;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        background: rgba(20, 12, 8, 0.75);
+        backdrop-filter: blur(10px);
       }
-      .lightbox-close {
+      .media-lightbox.open {
+        display: flex;
+      }
+      .media-inner {
+        position: relative;
+        width: min(1100px, 96vw);
+        max-height: 88vh;
+        display: grid;
+        gap: 0.9rem;
+        justify-items: center;
+      }
+      .media-cap {
+        color: rgba(255, 245, 235, 0.92);
+        font-weight: 800;
+        text-align: center;
+        max-width: 90ch;
+      }
+      .media-close {
         position: absolute;
         top: -0.6rem;
         right: -0.6rem;
@@ -590,8 +1126,7 @@
         height: 46px;
         border-radius: 999px;
         border: 1px solid rgba(255, 220, 200, 0.35);
-        background: rgba(255, 245, 235, 0.75);
-        backdrop-filter: blur(10px);
+        background: rgba(255, 245, 235, 0.85);
         cursor: pointer;
         font-size: 1.4rem;
         line-height: 1;
@@ -599,9 +1134,23 @@
         place-items: center;
         box-shadow: 0 18px 25px -18px rgba(0, 0, 0, 0.6);
       }
-      .lightbox-close:focus-visible {
-        outline: 3px solid rgba(255, 170, 122, 0.95);
-        outline-offset: 2px;
+
+      .media-view {
+        width: 100%;
+        max-height: 82vh;
+        border-radius: 1.6rem;
+        background: rgba(255, 245, 235, 0.14);
+        border: 1px solid rgba(255, 220, 200, 0.2);
+        box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.7);
+      }
+
+      .media-view img,
+      .media-view video {
+        width: 100%;
+        max-height: 82vh;
+        object-fit: contain;
+        display: block;
+        border-radius: 1.6rem;
       }
 
       footer {
@@ -623,6 +1172,15 @@
         opacity: 0.8;
       }
 
+      @media (max-width: 980px) {
+        .modal-body {
+          grid-template-columns: 1fr;
+        }
+        .hmodal-row {
+          grid-template-columns: 1fr;
+        }
+      }
+
       @media (max-width: 860px) {
         .nav-links {
           display: none;
@@ -632,8 +1190,13 @@
           align-items: center;
           gap: 0.55rem;
         }
-        .yearbook-wrap {
+        .wrap {
           border-radius: 2.6rem 0 2.6rem 0;
+        }
+        .section-head {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
         }
       }
 
@@ -696,42 +1259,102 @@
     <div class="content">
       <main id="main">
         <section class="page-hero">
-          <div class="small-label">BLOOM</div>
-          <h1 class="page-title">Meet the Members</h1>
-          <p class="page-subtitle">Faces, names, and little lines they’ll never live down 🌸</p>
-          <div class="controls">
-            <a class="pill" href="#top" aria-label="Back to top">⬆️ Top</a>
+          <div class="small-label">LIVING YEARBOOK</div>
+          <h1 class="page-title">Meet our Members</h1>
+        </section>
+
+        <section>
+          <div class="section-head">
+            <h2 class="section-title">Members</h2>
+            <p class="section-note">Click a member to see their fun facts + memories.</p>
+          </div>
+          <div class="wrap">
+            <div class="yearbook-grid" id="yearbookGrid" aria-label="Members yearbook grid"></div>
           </div>
         </section>
 
         <section>
-          <div class="yearbook-wrap">
-            <div class="yearbook-grid" id="yearbookGrid" aria-label="Members yearbook grid"></div>
+          <div class="section-head">
+            <h2 class="section-title">Hangouts</h2>
+          </div>
+          <div class="wrap">
+            <div class="hangouts-grid" id="hangoutsGrid" aria-label="Hangouts grid"></div>
           </div>
         </section>
 
         <footer>
           <p>Bloom Village</p>
           <p>Rooted in Unity. Rising in Power.</p>
-          <p>Created by Brandon.W and Tosh</p>
+          <p>Created by Brandon.W</p>
         </footer>
       </main>
     </div>
 
-    <!-- Lightbox -->
-    <div class="lightbox" id="lightbox" aria-hidden="true">
-      <div class="lightbox-inner" role="dialog" aria-modal="true" aria-label="Member preview">
-        <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close preview">
+    <!-- Member Profile Modal -->
+    <div class="modal" id="profileModal" aria-hidden="true">
+      <div class="modal-inner" role="dialog" aria-modal="true" aria-label="Member profile">
+        <button class="modal-close" id="profileClose" type="button" aria-label="Close profile">
           ×
         </button>
 
-        <div class="lightbox-card">
-          <img class="lightbox-img" id="lightboxImg" alt="" />
-          <div class="lightbox-caption">
-            <h3 id="lightboxName">Member</h3>
-            <p id="lightboxQuote">Quote</p>
+        <div class="modal-body">
+          <div class="profile-photo">
+            <img id="profileImg" alt="" />
+          </div>
+
+          <aside class="profile-card">
+            <div class="profile-name" id="profileName">Member</div>
+            <div class="profile-quote" id="profileQuote"></div>
+            <div class="facts" id="factsGrid" aria-label="Fun facts"></div>
+          </aside>
+
+          <section class="moments-section" aria-label="Memories derived from hangouts">
+            <div class="moments-title">Memories</div>
+            <div class="moments-sub" id="momentsSub">
+              Memories from hangouts you were tagged in.
+            </div>
+            <div class="moments-strip" id="momentsStrip"></div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hangout Modal -->
+    <div class="hmodal" id="hangoutModal" aria-hidden="true">
+      <div class="hmodal-inner" role="dialog" aria-modal="true" aria-label="Hangout details">
+        <button class="hmodal-close" id="hangoutClose" type="button" aria-label="Close hangout">
+          ×
+        </button>
+
+        <div class="hmodal-body">
+          <div class="hmodal-head">
+            <div class="hmodal-title" id="hangoutTitle">Hangout</div>
+            <div class="hmodal-date" id="hangoutDate">—</div>
+            <div class="hmodal-caption" id="hangoutCaption"></div>
+          </div>
+
+          <div class="hmodal-row">
+            <div class="hphotos" aria-label="Hangout media">
+              <div class="hstrip" id="hangoutPhotos"></div>
+            </div>
+
+            <div class="hpeople" aria-label="Tagged members">
+              <h3>Tagged</h3>
+              <div class="chips" id="hangoutPeople"></div>
+            </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Media Lightbox (Photo or Video) -->
+    <div class="media-lightbox" id="mediaLightbox" aria-hidden="true">
+      <div class="media-inner" role="dialog" aria-modal="true" aria-label="Media preview">
+        <button class="media-close" id="mediaClose" type="button" aria-label="Close media">
+          ×
+        </button>
+        <div class="media-view" id="mediaView"></div>
+        <div class="media-cap" id="mediaCap"></div>
       </div>
     </div>
 
@@ -740,6 +1363,7 @@
         const reduceMotion =
           window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+        // -------- Navbar mobile toggle --------
         const navToggle = document.getElementById("navToggle");
         const navDrawer = document.getElementById("navDrawer");
 
@@ -750,16 +1374,12 @@
         }
 
         if (navToggle && navDrawer) {
-          navToggle.addEventListener("click", () => {
-            const isOpen = navDrawer.classList.contains("open");
-            setDrawer(!isOpen);
-          });
-
-          navDrawer.querySelectorAll("a").forEach((a) =>
-            a.addEventListener("click", () => {
-              setDrawer(false);
-            }),
+          navToggle.addEventListener("click", () =>
+            setDrawer(!navDrawer.classList.contains("open")),
           );
+          navDrawer
+            .querySelectorAll("a")
+            .forEach((a) => a.addEventListener("click", () => setDrawer(false)));
 
           window.addEventListener("keydown", (e) => {
             if (e.key === "Escape") setDrawer(false);
@@ -768,15 +1388,14 @@
           window.addEventListener("click", (e) => {
             const target = e.target;
             if (!target) return;
-            if (navDrawer.classList.contains("open")) {
-              const clickedToggle = navToggle.contains(target);
-              const clickedDrawer = navDrawer.contains(target);
-              if (!clickedToggle && !clickedDrawer) setDrawer(false);
-            }
+            if (!navDrawer.classList.contains("open")) return;
+            const clickedToggle = navToggle.contains(target);
+            const clickedDrawer = navDrawer.contains(target);
+            if (!clickedToggle && !clickedDrawer) setDrawer(false);
           });
         }
 
-        // --- Petals ---
+        // -------- Petals --------
         const petalContainer = document.getElementById("petalContainer");
         const petalEmojis = ["🌸", "🌼", "🌻", "🌺", "🪷", "💮", "✨"];
 
@@ -798,28 +1417,246 @@
 
         const MEMBERS = [
           {
+            id: "tosh",
             name: "Tosh",
             quote: "Evolve! Beyond the person you once were a minute before.",
-            img: "assets/images/Tosh.jpeg",
+            img: "assets/images/members/Tosh.jpeg",
+            facts: [
+              { icon: "🎂", label: "Birthday", value: "20th June" },
+              { icon: "👍", label: "Likes", value: "Anime, Tech, Music and Musical theatre" },
+              {
+                icon: "👎",
+                label: "Dislikes",
+                value: "Carrots, people who don't know to cook cooking for me",
+              },
+              {
+                icon: "✨",
+                label: "Fun fact",
+                value: "I'm an amateur/novice at almost every board game",
+              },
+            ],
           },
-          { name: "Yvette", quote: "", img: "assets/images/Yvette.jpeg" },
-          { name: "Shon", quote: "", img: "assets/images/Shon.jpeg" },
-          { name: "Bogs", quote: "", img: "assets/images/Bogs.jpeg" },
-          { name: "Brandon", quote: "", img: "assets/images/Brandon.jpeg" },
-          { name: "Kanyi", quote: "", img: "assets/images/Kanyi.jpeg" },
-          { name: "Limo", quote: "", img: "assets/images/Limo.jpeg" },
           {
+            id: "yvette",
+            name: "Yvette",
+            quote: "Good vibes only.",
+            img: "assets/images/members/Yvette.jpeg",
+            facts: [
+              { icon: "🎂", label: "Birthday", value: "12th March" },
+              { icon: "👍", label: "Likes", value: "Photography, music, sunsets" },
+              { icon: "👎", label: "Dislikes", value: "Slow internet, rude people" },
+              { icon: "✨", label: "Fun fact", value: "Can stay up all night watching movies" },
+            ],
+          },
+          {
+            id: "shon",
+            name: "Shon",
+            quote: "Stay curious.",
+            img: "assets/images/members/Shon.jpeg",
+            facts: [
+              { icon: "🎂", label: "Birthday", value: "5th July" },
+              { icon: "👍", label: "Likes", value: "Gaming, football, late night talks" },
+              { icon: "👎", label: "Dislikes", value: "Early mornings" },
+              { icon: "✨", label: "Fun fact", value: "Can quote random memes perfectly" },
+            ],
+          },
+          {
+            id: "bogs",
+            name: "Bogs",
+            quote: "Just go with the flow.",
+            img: "assets/images/members/Bogs.jpeg",
+            facts: [
+              { icon: "🎂", label: "Birthday", value: "21st August" },
+              {
+                icon: "👍",
+                label: "Likes",
+                value: "Art(making,creating,watching), Music , writing,Hiking ",
+              },
+              { icon: "👎", label: "Dislikes", value: "Chapati, extreme weather, dirty nails" },
+              { icon: "✨", label: "Fun fact", value: "Always knows a good song recommendation" },
+            ],
+          },
+          {
+            id: "brandon",
+            name: "Brandon",
+            quote: "",
+            img: "assets/images/members/Brandon.jpeg",
+            facts: [
+              { icon: "🎂", label: "Birthday", value: "11th December" },
+              { icon: "👍", label: "Likes", value: "Coding, Literature, Football" },
+              { icon: "👎", label: "Dislikes", value: "Chelsea fans" },
+              { icon: "✨", label: "Fun fact", value: "I can write amazing poems" },
+            ],
+          },
+          {
+            id: "liz",
+            name: "Liz",
+            quote: "Make today count.",
+            img: "assets/images/members/Liz.jpeg",
+            facts: [
+              { icon: "🎂", label: "Birthday", value: "30th January" },
+              { icon: "👍", label: "Likes", value: "Fashion, coffee, shopping" },
+              { icon: "👎", label: "Dislikes", value: "Cold weather" },
+              { icon: "✨", label: "Fun fact", value: "Has a playlist for every mood" },
+            ],
+          },
+          {
+            id: "limo",
+            name: "Limo",
+            quote: "One step at a time.",
+            img: "assets/images/members/Limo.jpeg",
+            facts: [
+              { icon: "🎂", label: "Birthday", value: "9th May" },
+              { icon: "👍", label: "Likes", value: "Sports, music, hanging out with friends" },
+              { icon: "👎", label: "Dislikes", value: "Being late" },
+              {
+                icon: "✨",
+                label: "Fun fact",
+                value: "Can remember random facts about almost anything",
+              },
+            ],
+          },
+          {
+            id: "kanyi",
+            name: "Kanyi",
+            quote: "Dream big.",
+            img: "assets/images/members/Kanyi.jpeg",
+            facts: [
+              { icon: "🎂", label: "Birthday", value: "14th February" },
+              { icon: "👍", label: "Likes", value: "Music, art, creative projects" },
+              { icon: "👎", label: "Dislikes", value: "Messy spaces" },
+              { icon: "✨", label: "Fun fact", value: "Can spend hours perfecting small details" },
+            ],
+          },
+          {
+            id: "boney",
             name: "Boney",
             quote: "Slow down and enjoy the simple things. You can't rush a sunset",
-            img: "assets/images/Boni.jpeg",
+            img: "assets/images/members/Boni.jpeg",
+            facts: [
+              { icon: "🎂", label: "Birthday", value: "15th October" },
+              { icon: "👍", label: "Likes", value: "Music, sports, movies" },
+              { icon: "👎", label: "Dislikes", value: "Snails" },
+              {
+                icon: "✨",
+                label: "Fun fact",
+                value: "I don't drink, am an introvert and am the funniest person I know 😂",
+              },
+            ],
           },
-          { name: "Fadhili", quote: "", img: "assets/images/Fadhili.jpeg" },
           {
-            name: "Liz",
+            id: "ivy",
+            name: "Ivy",
             quote: "Inspired by nature perfected by science",
-            img: "",
+            img: "assets/images/members/Ivy.jpeg",
+            facts: [
+              { icon: "🎂", label: "Birthday", value: "9th September" },
+              { icon: "👍", label: "Likes", value: "Music, Sleeping, Yapping" },
+              { icon: "👎", label: "Dislikes", value: "All forms of banana, Smoke" },
+              {
+                icon: "✨",
+                label: "Fun fact",
+                value: "My coping mechanism when I'm stressed is thorough cleaning",
+              },
+            ],
+          },
+          {
+            id: "shane",
+            name: "Shane",
+            quote: "Keep moving forward.",
+            img: "assets/images/members/Shane.jpeg",
+            facts: [
+              { icon: "🎂", label: "Birthday", value: "6th November" },
+              { icon: "👍", label: "Likes", value: "Basketball, gaming, music" },
+              { icon: "👎", label: "Dislikes", value: "Losing streaks in games" },
+              {
+                icon: "✨",
+                label: "Fun fact",
+                value: "Can finish an entire series in one weekend",
+              },
+            ],
+          },
+          {
+            id: "kamwesh",
+            name: "Kamwesh",
+            quote: "Stay sharp.",
+            img: "assets/images/members/Kamwesh.jpeg",
+            facts: [
+              { icon: "🎂", label: "Birthday", value: "2nd February" },
+              { icon: "👍", label: "Likes", value: "Tech, gaming, exploring new apps" },
+              { icon: "👎", label: "Dislikes", value: "Slow computers" },
+              { icon: "✨", label: "Fun fact", value: "Always the first to try new gadgets" },
+            ],
+          },
+          {
+            id: "fadhili",
+            name: "Fadhili",
+            quote: "Stay sharp.",
+            img: "assets/images/members/Fadhili.jpeg",
+            facts: [
+              { icon: "🎂", label: "Birthday", value: "2nd February" },
+              { icon: "👍", label: "Likes", value: "Socializing, reading, Travelling" },
+              {
+                icon: "👎",
+                label: "Dislikes",
+                value: "Tomato sauce, pessimism, overipe avocados ",
+              },
+              {
+                icon: "✨",
+                label: "Fun fact",
+                value: "most music genre fluid person you'll ever meet",
+              },
+            ],
+          },
+          {
+            id: "jolie",
+            name: "Jolie",
+            quote: "I was scared to turn to the next page but then I remembered I am the author",
+            img: "assets/images/members/Jolie.jpeg",
+            facts: [
+              { icon: "🎂", label: "Birthday", value: "9th March" },
+              { icon: "👍", label: "Likes", value: "Eating, Serving the community, acting" },
+              { icon: "👎", label: "Dislikes", value: "Waking up early morning, Fake friends" },
+              { icon: "✨", label: "Fun fact", value: "I don't know how to lie" },
+            ],
           },
         ];
+
+        const HANGOUTS = [
+          {
+            id: "Hangout 1",
+            title: "Snack and game hangout at SAJOREC",
+            dateLabel: "25/02/2026",
+            caption: "Fun day at SAJOREC with games and snacks",
+            media: [
+              {
+                type: "image",
+                src: "assets/images/moments/Hangout 1.jpeg",
+                caption: "Snack time!",
+              },
+              {
+                type: "video",
+                src: "assets/videos/moments/Mavazi Ya Siku Hangout 1.mp4",
+                poster: "assets/videos/moments/hangout poster.png",
+                caption: "Na msitutamani",
+              },
+              {
+                type: "image",
+                src: "assets/images/moments/Hangout 1.1.jpeg",
+                caption: "Night group photo!",
+              },
+            ],
+            tags: ["tosh", "yvette", "bogs", "kamwesh", "kanyi", "shon", "brandon"],
+          },
+        ];
+
+        function byId(list) {
+          const map = new Map();
+          list.forEach((x) => map.set(x.id, x));
+          return map;
+        }
+
+        const MEMBERS_BY_ID = byId(MEMBERS);
 
         function initialsFromName(name) {
           const parts = String(name || "")
@@ -832,26 +1669,74 @@
           return (first + last).toUpperCase() || "🌸";
         }
 
-        // --- Build cards ---
-        const grid = document.getElementById("yearbookGrid");
+        function svgPlaceholderDataURL(initials, label) {
+          const safeInit = (initials || "🌸").replace(/[<>&]/g, "");
+          const safeLabel = (label || "BLOOM").replace(/[<>&]/g, "");
+          const svg = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1500">
+              <defs>
+                <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#e7d6c5"/>
+                  <stop offset="1" stop-color="#cfb8a8"/>
+                </linearGradient>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#g)"/>
+              <circle cx="600" cy="620" r="260" fill="rgba(255,245,235,0.75)" />
+              <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+                    font-family="Playfair Display, serif" font-size="180" font-weight="900"
+                    fill="rgba(90,55,35,0.75)">${safeInit}</text>
+              <text x="50%" y="78%" dominant-baseline="middle" text-anchor="middle"
+                    font-family="Poppins, sans-serif" font-size="54" font-weight="600"
+                    fill="rgba(90,55,35,0.7)">${safeLabel}</text>
+            </svg>`;
+          return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+        }
 
-        function renderCards(list) {
-          if (!grid) return;
-          grid.innerHTML = "";
+        function safeImgSrc(src, fallbackInitials, fallbackLabel) {
+          return src ? src : svgPlaceholderDataURL(fallbackInitials, fallbackLabel);
+        }
 
-          list.forEach((m, idx) => {
+        function firstCoverForHangout(h) {
+          const items = Array.isArray(h.media) ? h.media : [];
+          if (!items.length) return { kind: "image", src: "", poster: "" };
+
+          const first = items[0];
+          if (first.type === "video") {
+            // Use poster for cover if available, else placeholder image.
+            return { kind: "image", src: first.poster || "", poster: first.poster || "" };
+          }
+          return { kind: "image", src: first.src || "", poster: "" };
+        }
+
+        function firstMediaThumbForHangout(h) {
+          const items = Array.isArray(h.media) ? h.media : [];
+          if (!items.length) return { type: "image", src: "", poster: "", caption: "" };
+
+          // Prefer an image thumb if the first item is video with no poster
+          const first = items[0];
+          if (first.type === "video" && !first.poster) {
+            // still return video, but UI will show placeholder
+            return first;
+          }
+          return first;
+        }
+
+        // -------- Render: Members --------
+        const yearbookGrid = document.getElementById("yearbookGrid");
+
+        function renderMembers() {
+          if (!yearbookGrid) return;
+          yearbookGrid.innerHTML = "";
+
+          MEMBERS.forEach((m, idx) => {
             const card = document.createElement("article");
             card.className = "member-card";
-            card.setAttribute("tabindex", "0");
+            card.tabIndex = 0;
             card.setAttribute("role", "button");
             card.setAttribute("aria-label", `Open profile for ${m.name}`);
 
             const portrait = document.createElement("div");
             portrait.className = "portrait";
-
-            const initials = document.createElement("div");
-            initials.className = "initials";
-            initials.textContent = initialsFromName(m.name);
 
             const img = document.createElement("img");
             img.alt = `${m.name} portrait`;
@@ -859,10 +1744,12 @@
             img.decoding = "async";
             if (m.img) img.src = m.img;
 
+            const initials = document.createElement("div");
+            initials.className = "initials";
+            initials.textContent = initialsFromName(m.name);
+
             img.addEventListener("load", () => portrait.classList.add("has-img"));
-            img.addEventListener("error", () => {
-              img.remove();
-            });
+            img.addEventListener("error", () => img.remove());
 
             portrait.appendChild(img);
             portrait.appendChild(initials);
@@ -870,13 +1757,13 @@
             const meta = document.createElement("div");
             meta.className = "member-meta";
 
-            const nameEl = document.createElement("h2");
+            const nameEl = document.createElement("h3");
             nameEl.className = "member-name";
             nameEl.textContent = m.name;
 
             const quoteEl = document.createElement("p");
             quoteEl.className = "member-quote";
-            quoteEl.textContent = String(m.quote).replace(/\s+/g, " ").trim();
+            quoteEl.textContent = m.quote;
 
             meta.appendChild(nameEl);
             meta.appendChild(quoteEl);
@@ -884,22 +1771,20 @@
             card.appendChild(portrait);
             card.appendChild(meta);
 
-            card.addEventListener("click", () => openMember(m, portrait));
+            card.addEventListener("click", () => openProfile(m.id));
             card.addEventListener("keydown", (e) => {
               if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
-                openMember(m, portrait);
+                openProfile(m.id);
               }
             });
 
-            // Staggered reveal
             if (!reduceMotion) card.style.transitionDelay = `${Math.min(idx * 45, 400)}ms`;
 
-            grid.appendChild(card);
+            yearbookGrid.appendChild(card);
           });
 
-          // Reveal observer for cards
-          const cards = Array.from(grid.querySelectorAll(".member-card"));
+          const cards = Array.from(document.querySelectorAll(".member-card"));
           const observer = new IntersectionObserver(
             (entries) => {
               entries.forEach((entry) => {
@@ -914,87 +1799,453 @@
           cards.forEach((c) => observer.observe(c));
         }
 
-        // --- Lightbox ---
-        const lightbox = document.getElementById("lightbox");
-        const lightboxImg = document.getElementById("lightboxImg");
-        const lightboxClose = document.getElementById("lightboxClose");
-        const lightboxName = document.getElementById("lightboxName");
-        const lightboxQuote = document.getElementById("lightboxQuote");
+        // -------- Render: Hangouts (mixed media cover) --------
+        const hangoutsGrid = document.getElementById("hangoutsGrid");
 
-        let lastFocusedEl = null;
+        function renderHangouts() {
+          if (!hangoutsGrid) return;
+          hangoutsGrid.innerHTML = "";
 
-        function openLightbox(src, alt, name, quote) {
-          if (!lightbox || !lightboxImg || !lightboxName || !lightboxQuote) return;
+          HANGOUTS.forEach((h) => {
+            const card = document.createElement("div");
+            card.className = "hangout-card";
+            card.tabIndex = 0;
+            card.setAttribute("role", "button");
+            card.setAttribute("aria-label", `Open hangout: ${h.title}`);
 
-          lastFocusedEl = document.activeElement;
+            const mediaWrap = document.createElement("div");
+            mediaWrap.className = "hangout-media";
 
-          lightboxImg.src = src || "";
-          lightboxImg.alt = alt || "";
-          lightboxName.textContent = name || "Member";
-          lightboxQuote.textContent = quote || "";
+            const badge = document.createElement("div");
+            badge.className = "hangout-badge";
+            badge.textContent = "HANGOUT";
+            mediaWrap.appendChild(badge);
 
-          lightbox.classList.add("open");
-          lightbox.setAttribute("aria-hidden", "false");
-          document.body.style.overflow = "hidden";
+            const cover = firstCoverForHangout(h);
+            const coverImg = document.createElement("img");
+            coverImg.src = safeImgSrc(cover.src, "🌸", "BLOOM HANGOUT");
+            coverImg.alt = `${h.title} cover`;
+            mediaWrap.appendChild(coverImg);
 
-          if (lightboxClose) lightboxClose.focus();
-        }
+            // If first media is a video, show a small "VIDEO" tag on the cover
+            const first = firstMediaThumbForHangout(h);
+            if (first && first.type === "video") {
+              const tag = document.createElement("div");
+              tag.className = "media-tag";
+              tag.textContent = "VIDEO";
+              mediaWrap.appendChild(tag);
+            }
 
-        function closeLightbox() {
-          if (!lightbox || !lightboxImg) return;
+            const meta = document.createElement("div");
+            meta.className = "hangout-meta";
 
-          lightbox.classList.remove("open");
-          lightbox.setAttribute("aria-hidden", "true");
-          document.body.style.overflow = "";
-          lightboxImg.src = "";
+            const title = document.createElement("div");
+            title.className = "hangout-title";
+            title.textContent = h.title;
 
-          if (lastFocusedEl && typeof lastFocusedEl.focus === "function") lastFocusedEl.focus();
-        }
+            const date = document.createElement("div");
+            date.className = "hangout-date";
+            date.textContent = h.dateLabel || "—";
 
-        function openMember(m, portraitEl) {
-          let src = m.img;
+            const caption = document.createElement("div");
+            caption.className = "hangout-caption";
+            caption.textContent = h.caption || "";
 
-          if (!src) {
-            const initials = initialsFromName(m.name);
-            const svg = `
-              <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1500">
-                <defs>
-                  <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0" stop-color="#e7d6c5"/>
-                    <stop offset="1" stop-color="#cfb8a8"/>
-                  </linearGradient>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#g)"/>
-                <circle cx="600" cy="620" r="260" fill="rgba(255,245,235,0.75)" />
-                <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
-                      font-family="Playfair Display, serif" font-size="180" font-weight="900"
-                      fill="rgba(90,55,35,0.75)">${initials}</text>
-                <text x="50%" y="78%" dominant-baseline="middle" text-anchor="middle"
-                      font-family="Poppins, sans-serif" font-size="54" font-weight="600"
-                      fill="rgba(90,55,35,0.7)">BLOOM</text>
-              </svg>`;
-            src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
-          }
+            const chips = document.createElement("div");
+            chips.className = "chips";
+            (h.tags || []).forEach((mid) => {
+              const m = MEMBERS_BY_ID.get(mid);
+              if (!m) return;
+              chips.appendChild(makeMemberChip(m, () => openProfile(mid)));
+            });
 
-          openLightbox(src, `${m.name} portrait`, m.name, `“${m.quote}”`);
-        }
+            meta.appendChild(title);
+            meta.appendChild(date);
+            meta.appendChild(caption);
+            meta.appendChild(chips);
 
-        if (lightboxClose) lightboxClose.addEventListener("click", closeLightbox);
+            card.appendChild(mediaWrap);
+            card.appendChild(meta);
 
-        if (lightbox) {
-          lightbox.addEventListener("click", (e) => {
-            if (e.target === lightbox) closeLightbox();
+            card.addEventListener("click", () => openHangout(h.id));
+            card.addEventListener("keydown", (e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                openHangout(h.id);
+              }
+            });
+
+            hangoutsGrid.appendChild(card);
           });
         }
 
+        function makeMemberChip(member, onClick) {
+          const chip = document.createElement("button");
+          chip.type = "button";
+          chip.className = "chip";
+          chip.setAttribute("aria-label", `Open profile: ${member.name}`);
+
+          const dot = document.createElement("span");
+          dot.className = "chip-dot";
+          dot.setAttribute("aria-hidden", "true");
+
+          const text = document.createElement("span");
+          text.textContent = member.name;
+
+          chip.appendChild(dot);
+          chip.appendChild(text);
+
+          chip.addEventListener("click", (e) => {
+            e.preventDefault();
+            onClick();
+          });
+
+          return chip;
+        }
+
+        // -------- Member Profile Modal (memories from hangouts) --------
+        const profileModal = document.getElementById("profileModal");
+        const profileClose = document.getElementById("profileClose");
+        const profileImg = document.getElementById("profileImg");
+        const profileName = document.getElementById("profileName");
+        const profileQuote = document.getElementById("profileQuote");
+        const factsGrid = document.getElementById("factsGrid");
+        const momentsStrip = document.getElementById("momentsStrip");
+        const momentsSub = document.getElementById("momentsSub");
+
+        let lastFocusedEl = null;
+
+        function openProfile(memberId) {
+          const member = MEMBERS_BY_ID.get(memberId);
+          if (!member || !profileModal) return;
+
+          lastFocusedEl = document.activeElement;
+
+          profileName.textContent = member.name;
+          profileQuote.textContent = member.quote;
+
+          const initials = initialsFromName(member.name);
+          profileImg.src = safeImgSrc(member.img, initials, "BLOOM");
+          profileImg.alt = `${member.name} photo`;
+
+          factsGrid.innerHTML = "";
+          (member.facts || []).forEach((f) => {
+            const item = document.createElement("div");
+            item.className = "fact";
+
+            const icon = document.createElement("div");
+            icon.className = "fact-icon";
+            icon.textContent = f.icon || "✨";
+
+            const body = document.createElement("div");
+
+            const label = document.createElement("div");
+            label.className = "fact-label";
+            label.textContent = f.label || "Fact";
+
+            const value = document.createElement("div");
+            value.className = "fact-value";
+            value.textContent = f.value || "—";
+
+            body.appendChild(label);
+            body.appendChild(value);
+
+            item.appendChild(icon);
+            item.appendChild(body);
+            factsGrid.appendChild(item);
+          });
+
+          const memories = HANGOUTS.filter((h) => (h.tags || []).includes(memberId));
+
+          momentsSub.textContent =
+            memories.length > 0
+              ? `${memories.length} memory${memories.length === 1 ? "" : "ies"} from tagged hangouts.`
+              : "No tagged hangouts yet. Add a hangout and tag them 🌸";
+
+          momentsStrip.innerHTML = "";
+          if (memories.length === 0) {
+            momentsStrip.appendChild(
+              makeMomentCard({
+                title: "No memories yet",
+                dateLabel: "—",
+                caption: "Add your next hangout and tag them to start their timeline.",
+                media: null,
+                badge: "BLOOM",
+              }),
+            );
+          } else {
+            memories.forEach((h) => {
+              const first = firstMediaThumbForHangout(h);
+              momentsStrip.appendChild(
+                makeMomentCard({
+                  title: h.title,
+                  dateLabel: h.dateLabel || "—",
+                  caption: h.caption || "",
+                  media: first,
+                  badge: "MEMORY",
+                  onOpen: () => openHangout(h.id),
+                }),
+              );
+            });
+          }
+
+          profileModal.classList.add("open");
+          profileModal.setAttribute("aria-hidden", "false");
+          document.body.style.overflow = "hidden";
+          if (profileClose) profileClose.focus();
+        }
+
+        function closeProfile() {
+          if (!profileModal) return;
+          profileModal.classList.remove("open");
+          profileModal.setAttribute("aria-hidden", "true");
+          document.body.style.overflow = "";
+          profileImg.src = "";
+          if (lastFocusedEl && typeof lastFocusedEl.focus === "function") lastFocusedEl.focus();
+        }
+
+        function makeMomentCard(mo) {
+          const card = document.createElement("div");
+          card.className = "moment-card";
+          card.tabIndex = 0;
+          card.setAttribute("role", "button");
+          card.setAttribute("aria-label", `Open memory: ${mo.title}`);
+
+          const mediaWrap = document.createElement("div");
+          mediaWrap.className = "moment-media";
+
+          const badge = document.createElement("div");
+          badge.className = "moment-badge";
+          badge.textContent = mo.badge || "MEMORY";
+          mediaWrap.appendChild(badge);
+
+          const tag = document.createElement("div");
+          tag.className = "media-tag";
+
+          const media = mo.media;
+          if (media && media.type === "video") {
+            // Use poster/thumb in card
+            const img = document.createElement("img");
+            img.src = safeImgSrc(media.poster || "", "🎬", "VIDEO");
+            img.alt = `${mo.title} video poster`;
+            mediaWrap.appendChild(img);
+            tag.textContent = "VIDEO";
+            mediaWrap.appendChild(tag);
+          } else {
+            const img = document.createElement("img");
+            img.src = safeImgSrc(media?.src || "", "🌸", "BLOOM MOMENT");
+            img.alt = `${mo.title} photo`;
+            mediaWrap.appendChild(img);
+            if (media && media.type === "image") {
+              // no tag needed
+            } else {
+              // placeholder
+            }
+          }
+
+          const meta = document.createElement("div");
+          meta.className = "moment-meta";
+
+          const t = document.createElement("div");
+          t.className = "moment-title";
+          t.textContent = mo.title || "Moment";
+
+          const d = document.createElement("div");
+          d.className = "moment-date";
+          d.textContent = mo.dateLabel || "—";
+
+          const c = document.createElement("div");
+          c.className = "moment-caption";
+          c.textContent = mo.caption || "";
+
+          meta.appendChild(t);
+          meta.appendChild(d);
+          meta.appendChild(c);
+
+          card.appendChild(mediaWrap);
+          card.appendChild(meta);
+
+          const openFn = mo.onOpen
+            ? mo.onOpen
+            : () =>
+                openMediaLightbox(media, `${mo.title} — ${mo.dateLabel || "—"}`, mo.caption || "");
+
+          card.addEventListener("click", openFn);
+          card.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              openFn();
+            }
+          });
+
+          return card;
+        }
+
+        if (profileClose) profileClose.addEventListener("click", closeProfile);
+        if (profileModal) {
+          profileModal.addEventListener("click", (e) => {
+            if (e.target === profileModal) closeProfile();
+          });
+        }
+
+        // -------- Hangout Modal (mixed media strip) --------
+        const hangoutModal = document.getElementById("hangoutModal");
+        const hangoutClose = document.getElementById("hangoutClose");
+        const hangoutTitle = document.getElementById("hangoutTitle");
+        const hangoutDate = document.getElementById("hangoutDate");
+        const hangoutCaption = document.getElementById("hangoutCaption");
+        const hangoutPhotos = document.getElementById("hangoutPhotos");
+        const hangoutPeople = document.getElementById("hangoutPeople");
+
+        function openHangout(hid) {
+          const h = HANGOUTS.find((x) => x.id === hid);
+          if (!h || !hangoutModal) return;
+
+          hangoutTitle.textContent = h.title;
+          hangoutDate.textContent = h.dateLabel || "—";
+          hangoutCaption.textContent = h.caption || "";
+
+          hangoutPhotos.innerHTML = "";
+          const media = Array.isArray(h.media) ? h.media : [];
+          const used = media.length
+            ? media
+            : [{ type: "image", src: "", caption: "Add media to this hangout." }];
+
+          used.forEach((item, idx) => {
+            const wrap = document.createElement("div");
+            wrap.className = "hitem";
+            wrap.setAttribute("role", "button");
+            wrap.tabIndex = 0;
+            wrap.setAttribute("aria-label", `Open media ${idx + 1}`);
+
+            const badge = document.createElement("div");
+            badge.className = "hshot-badge";
+            badge.textContent = item.type === "video" ? `VIDEO ${idx + 1}` : `PHOTO ${idx + 1}`;
+            wrap.appendChild(badge);
+
+            if (item.type === "video") {
+              // Show poster as thumbnail in strip (clean + fast)
+              const img = document.createElement("img");
+              img.src = safeImgSrc(item.poster || "", "🎬", "VIDEO");
+              img.alt = `${h.title} video ${idx + 1} poster`;
+              wrap.appendChild(img);
+            } else {
+              const img = document.createElement("img");
+              img.src = safeImgSrc(item.src || "", "🌸", "BLOOM");
+              img.alt = `${h.title} photo ${idx + 1}`;
+              wrap.appendChild(img);
+            }
+
+            const openFn = () =>
+              openMediaLightbox(
+                item,
+                `${h.title} — ${h.dateLabel || "—"}`,
+                item.caption || h.caption || "",
+              );
+
+            wrap.addEventListener("click", openFn);
+            wrap.addEventListener("keydown", (e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                openFn();
+              }
+            });
+
+            hangoutPhotos.appendChild(wrap);
+          });
+
+          hangoutPeople.innerHTML = "";
+          (h.tags || []).forEach((mid) => {
+            const m = MEMBERS_BY_ID.get(mid);
+            if (!m) return;
+            hangoutPeople.appendChild(makeMemberChip(m, () => openProfile(mid)));
+          });
+
+          hangoutModal.classList.add("open");
+          hangoutModal.setAttribute("aria-hidden", "false");
+        }
+
+        function closeHangout() {
+          if (!hangoutModal) return;
+          hangoutModal.classList.remove("open");
+          hangoutModal.setAttribute("aria-hidden", "true");
+        }
+
+        if (hangoutClose) hangoutClose.addEventListener("click", closeHangout);
+        if (hangoutModal) {
+          hangoutModal.addEventListener("click", (e) => {
+            if (e.target === hangoutModal) closeHangout();
+          });
+        }
+
+        // -------- Media Lightbox (photo OR video) --------
+        const mediaLightbox = document.getElementById("mediaLightbox");
+        const mediaClose = document.getElementById("mediaClose");
+        const mediaView = document.getElementById("mediaView");
+        const mediaCap = document.getElementById("mediaCap");
+
+        function openMediaLightbox(item, title, caption) {
+          if (!mediaLightbox || !mediaView || !mediaCap) return;
+
+          mediaView.innerHTML = "";
+
+          if (item && item.type === "video" && item.src) {
+            const v = document.createElement("video");
+            v.src = item.src;
+            v.controls = true;
+            v.playsInline = true;
+            v.preload = "metadata";
+            if (item.poster) v.poster = item.poster;
+            mediaView.appendChild(v);
+          } else {
+            const img = document.createElement("img");
+            img.src = safeImgSrc(item?.src || "", "🌸", "BLOOM");
+            img.alt = title || "Photo";
+            mediaView.appendChild(img);
+          }
+
+          mediaCap.textContent = caption ? `${title} — ${caption}` : title || "";
+          mediaLightbox.classList.add("open");
+          mediaLightbox.setAttribute("aria-hidden", "false");
+        }
+
+        function closeMediaLightbox() {
+          if (!mediaLightbox || !mediaView) return;
+
+          // Stop video playback by removing the element
+          mediaView.innerHTML = "";
+          mediaCap.textContent = "";
+          mediaLightbox.classList.remove("open");
+          mediaLightbox.setAttribute("aria-hidden", "true");
+        }
+
+        if (mediaClose) mediaClose.addEventListener("click", closeMediaLightbox);
+        if (mediaLightbox) {
+          mediaLightbox.addEventListener("click", (e) => {
+            if (e.target === mediaLightbox) closeMediaLightbox();
+          });
+        }
+
+        // Global Esc: close media -> hangout -> profile
         window.addEventListener("keydown", (e) => {
-          if (e.key === "Escape") {
-            if (lightbox && lightbox.classList.contains("open")) closeLightbox();
+          if (e.key !== "Escape") return;
+
+          if (mediaLightbox && mediaLightbox.classList.contains("open")) {
+            closeMediaLightbox();
+            return;
+          }
+          if (hangoutModal && hangoutModal.classList.contains("open")) {
+            closeHangout();
+            return;
+          }
+          if (profileModal && profileModal.classList.contains("open")) {
+            closeProfile();
           }
         });
 
-        // Initial render
-        renderCards(MEMBERS);
+        // -------- Init --------
+        renderMembers();
+        renderHangouts();
       })();
     </script>
   </body>

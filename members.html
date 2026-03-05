@@ -859,10 +859,8 @@
             img.decoding = "async";
             if (m.img) img.src = m.img;
 
-            // If image loads, show it. If it fails, keep initials.
             img.addEventListener("load", () => portrait.classList.add("has-img"));
             img.addEventListener("error", () => {
-              // leave placeholder
               img.remove();
             });
 
@@ -886,7 +884,6 @@
             card.appendChild(portrait);
             card.appendChild(meta);
 
-            // Click / Enter opens lightbox if there is an image, otherwise still opens with placeholder
             card.addEventListener("click", () => openMember(m, portrait));
             card.addEventListener("keydown", (e) => {
               if (e.key === "Enter" || e.key === " ") {
@@ -895,7 +892,7 @@
               }
             });
 
-            // Staggered reveal (nice yearbook vibe)
+            // Staggered reveal
             if (!reduceMotion) card.style.transitionDelay = `${Math.min(idx * 45, 400)}ms`;
 
             grid.appendChild(card);

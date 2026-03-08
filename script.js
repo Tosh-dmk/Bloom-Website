@@ -250,8 +250,8 @@
         },
         {
           type: "video",
-          src: "assets/videos/moments/hangout-1-video.mp4",
-          poster: "assets/videos/moments/hangout-poster.png",
+          src: "assets/hangout-1-video.mp4",
+          poster: "assets/hangout-poster.png",
           caption: "Na msitutamani",
         },
         {

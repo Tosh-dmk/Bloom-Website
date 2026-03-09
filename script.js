@@ -208,7 +208,7 @@
       quote: "Stay sharp.",
       img: "assets/images/members/Fadhili.jpeg",
       facts: [
-        { icon: "🎂", label: "Birthday", value: "2nd February" },
+        { icon: "🎂", label: "Birthday", value: "17th April" },
         { icon: "👍", label: "Likes", value: "Socializing, reading, Travelling" },
         {
           icon: "👎",
